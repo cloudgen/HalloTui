@@ -1,35 +1,28 @@
 #!/bin/sh
 # requirement-python-packaging
-# Maintainer verbs only. video-join flags are not accepted here.
+# Maintainer verbs only. hallo-tui flags are not accepted here.
 set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 cd "$ROOT"
 
-PROJECT="VideoJoin"
+PROJECT="HalloTui"
 
 out_err() {
     printf '%s\n' "$1" >&2
 }
 
 read_version() {
-    python3 - "$ROOT" <<'PY'
-import os
-import sys
-
-root = sys.argv[1]
-sys.path.insert(0, os.path.join(root, "src"))
-import VideoJoin
-sys.stdout.write(VideoJoin.__version__)
-PY
+    # Ship version is project.ini. This script does not import a Python package.
+    sed -n 's/^VERSION=//p' "$ROOT/project.ini" | head -n 1
 }
 
 VERSION=$(read_version 2>/dev/null || true)
 
 need_version() {
     if [ -z "$VERSION" ]; then
-        out_err "ERROR: Cannot read the package version from src/VideoJoin."
-        out_err "   Next: set __version__ in src/VideoJoin/__init__.py to match pyproject.toml, then ./build.sh version"
+        out_err "ERROR: Cannot read VERSION from project.ini."
+        out_err "   Next: set VERSION in project.ini, then ./build.sh version"
         exit 1
     fi
 }
@@ -76,7 +69,7 @@ do_setup() {
 
 do_clean() {
     rm -rf build dist .eggs .pytest_cache
-    rm -rf VideoJoin.egg-info src/VideoJoin.egg-info src/*.egg-info
+    rm -rf ./*.egg-info ./src/*.egg-info
     find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
     find . -type f -name "._*" -delete 2>/dev/null || true
     printf '%s\n' "Clean complete"

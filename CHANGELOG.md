@@ -1,9 +1,21 @@
 # CHANGELOG
 
-All notable changes to **VideoJoin** are documented here.  
-Version SSOT: `pyproject.toml` + `src/VideoJoin/__init__.__version__`.
+All notable changes to **HalloTui** are documented here.  
+Version SSOT: `kVersion` in `src/main/cpp/project.h` and `VERSION` in `project.ini`.
 
-## [Unreleased]
+## [1.0.0] - 2026-10-22
+
+### Changed
+
+- Public repository is https://github.com/cloudgen/HalloTui. The homepage string is that URL.
+- The ship unit is the C++ binary `hallo-tui`, built with GNU Make. Version is **1.0.0**.
+- Typed `hello` prints `Welcome to HalloTui 1.0.0.` in the terminal and does not draw the menu.
+- Front row **1** is **hello**. Choosing it shows that same welcome line on the menu.
+- The about page domain line is `Show a welcome message`. Self-management row 83 reads "version and this computer."
+
+### Removed
+
+- Join, file listing, and FFmpeg. `join` and `list-videos` are not verbs. The program does not scan the folder for media and does not call an encoder.
 
 ## [1.0.5] - 2026-10-04
 

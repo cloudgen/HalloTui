@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-cli-language.md
-**Status**: Active (Version 1.0.1)
+**Status**: Active (Version 1.1.0 – leaf `~/.local/HalloTui/language`. Ship unit is `src/main/cpp/menu_language.cpp`)
 **Area**: python
 **Key**: `requirement-python-cli-language`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -29,7 +29,7 @@ Class `MenuLanguage` in `src/VideoJoin/menu_language.py` holds the codes, the sa
 | Surface | What you open | What for |
 |---------|---------------|----------|
 | `video-join` on a terminal | Front board | Row **4** is language. Row **3** is system-log |
-| `~/.local/VideoJoin/language` | One-line file in this login’s home | The code saved from the menu |
+| `~/.local/HalloTui/language` | One-line file in this login’s home | The code saved from the menu |
 | `VIDEOJOIN_LANG` | Environment value for this process | Wins over the file and does not write it |
 
 | You do… | What it means | What you type |
@@ -44,12 +44,12 @@ Class `MenuLanguage` in `src/VideoJoin/menu_language.py` holds the codes, the sa
 1. **One owner.** This file selects the menu language and owns the words the menu boards print. `requirement-python-tui` draws the path line and the rows. It does not detect a language. `language` **MUST NOT** be an argv verb. `requirement-python-cli-interface` states the same ban.
 2. **Default.** The code **MUST** be `en` when the leaf is missing, when the first line is empty, or when that line is not one of the thirteen codes. An invalid first line **MUST NOT** be rewritten. `LANG`, `LANGUAGE`, `LC_ALL`, and `LC_MESSAGES` **MUST NOT** select a code. This file does not use gettext.
 3. **Process override.** When `VIDEOJOIN_LANG` is one of the thirteen codes, that code **MUST** win at process start. That start **MUST NOT** write the leaf. Any other value of `VIDEOJOIN_LANG` is ignored and the leaf is read.
-4. **Leaf.** The leaf is `${HOME}/.local/VideoJoin/language`. The program reads only the first line, ignores a trailing carriage return, and ignores later lines. A menu pick **MUST** write the code, one newline, and nothing else. The directory **MUST** be mode `0700`. The file **MUST** be mode `0600`. The program creates that directory only when a pick is saved. A missing home, or a write that fails, **MUST** keep the code this process already had and **MUST** show the failed-write line in that previous language. The front board **MUST** still return.
+4. **Leaf.** The leaf is `${HOME}/.local/HalloTui/language`. The program reads only the first line, ignores a trailing carriage return, and ignores later lines. A menu pick **MUST** write the code, one newline, and nothing else. The directory **MUST** be mode `0700`. The file **MUST** be mode `0600`. The program creates that directory only when a pick is saved. A missing home, or a write that fails, **MUST** keep the code this process already had and **MUST** show the failed-write line in that previous language. The front board **MUST** still return.
 5. **Front row 4.** On every host, including Termux, Git Bash, and Windows cmd, the front board **MUST** print row **4** `language`. That row **MUST** open the language board. It **MUST NOT** run a command and **MUST NOT** leave the program. Row **2** stays omitted. Rows **1**, **8**, and **9** stay join, self-management, and Exit. System-log is front row **3**. Its children are **31** view-log, **32** clear-log, and **33** log-folder. Those numbers are the picture on `requirement-python-tui`.
 6. **Language block.** The language board uses the twenty numbers **40** through **59**. Assigned rows are **41** through **53**, in the order below. **40** and **54** through **59** are reserved. They **MUST NOT** be printed. Typing a reserved number **MUST** show the unknown-choice line and **MUST NOT** write the leaf. **0**, an empty Enter on Back, and Esc **MUST** return to the front board and **MUST NOT** write the leaf.
 7. **Names on the language board.** Each assigned row **MUST** show that language’s endonym as the short, in every UI language. The explain **MUST** be that UI language’s sentence with the endonym in the name slot. The English sentence is `use {name} for this menu`.
-8. **What follows the code.** On the front board, the language board, the system-log board, and the self-management board, these follow the selected code: the path label, the board title, category shorts, category longs, leaf longs, Back, Exit, the unknown-choice line, the saved-language line, and the failed-write line. Leaf shorts stay the English tokens `join`, `view-log`, `clear-log`, `log-folder`, `version`, `about`, `version-check`, `self-update`, `self-uninstall`, and `self-install`.
-9. **What stays English.** Join question prompts, the list-videos page, command output, pip lifecycle output, the argv `version` line, FFmpeg and join fail-closed sentences, the help body, and the about page stay English in this version. The key hint `Up/Down  •  Enter` stays English. The folder path and the clock `HH:MM:SS` are not translated. The product name and the version stay on the status line.
+8. **What follows the code.** On the front board, the language board, the system-log board, and the self-management board, these follow the selected code: the path label, the board title, category shorts, category longs, leaf longs, Back, Exit, the unknown-choice line, the saved-language line, and the failed-write line. Leaf shorts stay the English tokens `hello`, `view-log`, `clear-log`, `log-folder`, `version`, `about`, `version-check`, `self-update`, `self-uninstall`, and `self-install`.
+9. **What stays English.** The welcome line, command output, pip lifecycle output, the argv `version` line, the help body, and the about page stay English in this version. The key hint `Up/Down  •  Enter` stays English. The folder path and the clock `HH:MM:SS` are not translated. The product name and the version stay on the status line.
 10. **After a successful pick.** The session **MUST** show the saved-language line and **MUST** redraw the front board in the new language. That line sits above the box. It is not the error line. It stays until the next key. A failed write uses the same place, in the language that was current before the failure.
 11. **Unknown choice.** A number or a word that is not on the current board **MUST** stay on that board and show the unknown-choice line in the selected language. It **MUST NOT** exit the process and **MUST NOT** write the leaf. The English line is `That choice is not on this list. Pick a listed number.`
 12. **Clock.** The language board is a clock board. The one-second wait from `requirement-python-tui` rule 13 includes it. A language pick does not open a result page.
@@ -81,12 +81,12 @@ Class `MenuLanguage` in `src/VideoJoin/menu_language.py` holds the codes, the sa
 | **Painter site** | `MenuPainter.__init__` writes `MenuLanguage(logger=logger, home=home)` |
 | **Front row** | **4** language. Children **41**–**53**. Reserved and not printed: **40**, **54**–**59** |
 | **System-log** | Front **3**. Children **31** view-log, **32** clear-log, **33** log-folder |
-| **Leaf** | `${HOME}/.local/VideoJoin/language`. Directory mode `0700`. File mode `0600`. Not the cache folder. Not `/var/VideoJoin` |
+| **Leaf** | `${HOME}/.local/HalloTui/language`. Directory mode `0700`. File mode `0600`. Not the cache folder. Not `/var/VideoJoin` |
 | **Override** | `VIDEOJOIN_LANG` at process start. Does not write |
 | **Back / Exit shorts** | en Back / Exit. zh-Hans 返回 / 离开. zh-Hant 返回 / 離開. es Atrás / Salir. ar رجوع / خروج. fr Retour / Quitter. pt Voltar / Sair. ru Назад / Выход. de Zurück / Beenden. ja 戻る / 終了. ko 뒤로 / 종료. nl Terug / Afsluiten. el Πίσω / Έξοδος |
 | **Category shorts** | language: language, 语言, 語言, idioma, لغة, langue, язык, Sprache, 言語, 언어, taal, γλώσσα. Spanish and Portuguese both use idioma. system-log and self-management shorts are the words in `MenuLanguage` for that code. The English tokens stay `system-log` and `self-management` |
 | **Language-board tokens** | 41 `english` / `en` / `English`. 42 `simplified-chinese` / `zh-hans` / `zh-Hans` / `简体中文`. 43 `traditional-chinese` / `zh-hant` / `zh-Hant` / `繁體中文`. 44 `spanish` / `es` / `Español` / `español`. 45 `arabic` / `ar` / `العربية` / `عربي`. 46 `french` / `fr` / `Français` / `français`. 47 `portuguese` / `pt` / `Português` / `português` / `portugues`. 48 `russian` / `ru` / `Русский` / `русский`. 49 `german` / `de` / `Deutsch` / `deutsch`. 50 `japanese` / `ja` / `日本語`. 51 `korean` / `ko` / `한국어`. 52 `dutch` / `nl` / `Nederlands` / `nederlands`. 53 `greek` / `el` / `Ελληνικά` / `ελληνικά` |
-| **About leaf long (en)** | `version, FFmpeg, and this computer`. The other twelve codes say that fact in that language. The about page stays English and is `requirement-python-about` |
+| **About leaf long (en)** | `version and this computer`. The about page stays English and is `requirement-python-about` |
 | **Not a verb** | `language` is absent from `Cli.PRODUCT_VERBS` |
 | **Proof** | `TP-LANG-01` has. `TP-TUI-09` still proves that `LANG` does not select `路徑` when the leaf is missing |
 
@@ -96,7 +96,7 @@ Worked leaf, this login, after choosing Traditional Chinese:
 zh-Hant
 ```
 
-The file is `~/.local/VideoJoin/language`. The line ends with a newline. A test passes its own home directory into `MenuLanguage(...)` and does not read the developer’s leaf.
+The file is `~/.local/HalloTui/language`. The line ends with a newline. A test passes its own home directory into `MenuLanguage(...)` and does not read the developer’s leaf.
 
 Invocation sample for the row this file owns. There is no `video-join language` command. On the open menu:
 
@@ -159,7 +159,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the person runs `video-join
 |----|-----------|
 | AC-1 | Front row 4 opens the language board. Rows 41–53 show the endonyms. 40 and 54–59 are not printed |
 | AC-2 | System-log is front row 3. Its children are 31, 32, and 33 |
-| AC-3 | A pick writes `${HOME}/.local/VideoJoin/language` mode `0600` and switches this process |
+| AC-3 | A pick writes `${HOME}/.local/HalloTui/language` mode `0600` and switches this process |
 | AC-4 | Back, Esc, and a reserved number do not write. A failed write keeps the previous code |
 | AC-5 | A missing or invalid leaf is English and is not rewritten. `LANG` does not select a code. `VIDEOJOIN_LANG` wins and does not write |
 | AC-6 | `language` is not an argv verb. Leaf shorts stay English |

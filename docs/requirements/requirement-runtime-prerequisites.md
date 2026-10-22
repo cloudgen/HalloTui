@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-runtime-prerequisites.md
-**Status**: Active (Version 1.1.2)
+**Status**: Active (Version 1.2.0 – no encoder. The C++ binary does not import ChronicleLogger)
 **Area**: runtime
 **Key**: `requirement-runtime-prerequisites`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -10,7 +10,7 @@ Declare the host and Python runtime prerequisites required to run VideoJoin. Thi
 
 ### 1.1 Human-facing
 
-**In one sentence:** You need Python, the ChronicleLogger package, and FFmpeg on your PATH before a join can finish.
+**In one sentence:** The C++ binary needs ncurses. No encoder is required. ChronicleLogger is not imported.
 
 | Box | Meaning | Example |
 |-----|---------|---------|
@@ -20,8 +20,8 @@ Declare the host and Python runtime prerequisites required to run VideoJoin. Thi
 
 | Includes | Excludes |
 |----------|----------|
-| FFmpeg on PATH, required for `join` | A claim that `pip install VideoJoin` installs FFmpeg |
-| ChronicleLogger `>=1.3.1`, required | Calling that library optional |
+| ncurses at link time | A claim that this binary installs FFmpeg |
+| No ChronicleLogger import in the C++ ship unit | A host encoder |
 | A console next step when either one is missing | Root auto-install of either one |
 
 | Surface | What you open | What for |
@@ -33,7 +33,7 @@ Declare the host and Python runtime prerequisites required to run VideoJoin. Thi
 | You do… | What it means | What you type |
 |---------|---------------|---------------|
 | Install the Python package | You get VideoJoin and the status library. | `python -m pip install VideoJoin` |
-| Prepare a join | FFmpeg must already be on PATH. The menu may open before that check. | `ffmpeg -version` |
+| Open the menu | No encoder check. The menu does not call FFmpeg. | `hallo-tui` |
 | Start with the library missing | The console prints the pip next step and returns non-zero. | `video-join` |
 
 ## 2. Core Rules (Mandatory)
@@ -48,17 +48,18 @@ Declare the host and Python runtime prerequisites required to run VideoJoin. Thi
 
 | Component | Kind | Required for | Install surface |
 |-----------|------|--------------|-----------------|
-| CPython | interpreter | package import and the CLI | OS, pyenv, or the system Python. This product does not require you to install pyenv |
-| ChronicleLogger `>=1.3.1` | pip package | the one status logger | `pyproject.toml` / `python -m pip`. Required, not optional |
-| FFmpeg (`ffmpeg` on PATH) | system binary | stream-copy concat and the re-encode fallback | the operator’s own install. Not pip |
+| ncurses | link library | the text screen | the host. The `Makefile` links it |
+| `python3` | optional host binary | rows 84–87 only, when the operator asks | not required to print `hello` or to open the menu |
+
+FFmpeg is not a runtime requirement. ChronicleLogger is not imported by the C++ binary.
 
 ### 2.3 Validation
 
-4. **MUST** fail with an actionable message when `join` runs and `ffmpeg` is missing.
-5. The front board **MAY** open when `ffmpeg` is missing. About reports whether it is on PATH. About does not install it.
-6. **MUST** document that FFmpeg is not installed by `pip install VideoJoin`.
-7. **MUST** document the input formats as the domain format set.
-8. If `ChronicleLogger` cannot be imported, `def main` **MUST** print the pip next step and return non-zero (`requirement-python-cli-logging`). That line is console text. The library is required.
+4. The program **MUST NOT** require `ffmpeg` on PATH to open the menu or to print `hello`.
+5. The about page **MUST** say `Runtime tools: none`. It **MUST NOT** report FFmpeg on PATH.
+6. **MUST NOT** document FFmpeg as something this product installs.
+7. There is no media format set. `requirement-video-ffmpeg-pipeline` is Retired.
+8. A missing ChronicleLogger **MUST NOT** block `hallo-tui`. The C++ ship unit does not import it.
 
 ### 2.4 Privilege
 
@@ -69,19 +70,19 @@ Declare the host and Python runtime prerequisites required to run VideoJoin. Thi
 
 | Item | Value |
 |------|--------|
-| **Python package install** | `python -m pip install VideoJoin`, or `python -m pip install -e .` from a checkout |
-| **Declared pip dependency (law)** | `ChronicleLogger>=1.3.1`, required |
-| **Live manifest** | `pyproject.toml` lists `ChronicleLogger>=1.3.1`. Matches the law floor |
-| **System binary** | `ffmpeg` on PATH, required for `join` |
-| **Auto install command** | none. pip does not install FFmpeg. The product does not run a root install |
-| **Platform notes** | Linux primary. macOS and Windows when FFmpeg and CPython are available |
-| **Product version** | 1.0.5 |
-| **Startup check** | FFmpeg is checked when `join` runs (`shutil.which` and `ffmpeg -version`). It is not a gate on the front board |
-| **User docs** | Root `README.md` states FFmpeg is a system prerequisite. This pass does not edit that README |
+| **Build** | `make` writes `target/exe/debug/hallo-tui` |
+| **Declared pip dependency (law)** | none for the C++ binary |
+| **System library** | ncurses |
+| **Encoder** | none |
+| **Auto install command** | none. The product does not run a root install |
+| **Platform notes** | Linux with `g++` and ncurses |
+| **Product version** | 1.0.0 |
+| **Startup check** | none for FFmpeg |
+| **User docs** | Root `README.md` |
 
 ### 2.6 Why This Requirement Exists (CIAO)
 
-- **Principle 1 – Caution**: FFmpeg may be missing. The join says so.
+- **Principle 1 – Caution**: No encoder is required. The menu does not call FFmpeg.
 - **Principle 10 – Least privilege**: No root installer.
 - **Principle 2 – Intentional**: The pip library and the system binary are different rows.
 

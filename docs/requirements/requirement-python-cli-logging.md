@@ -1,5 +1,7 @@
 **file**: docs/requirements/requirement-python-cli-logging.md
-**Status**: Active (Version 1.0.2)
+**Status**: Superseded (2026-10-22). The C++ ship unit does not construct ChronicleLogger. A future logger unit is named in `requirement-cpp-coding-style` and is not present yet.
+
+**Previous status**: Active (Version 1.0.2)
 **Area**: python
 **Key**: `requirement-python-cli-logging`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)

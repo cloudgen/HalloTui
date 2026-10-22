@@ -1,5 +1,7 @@
 **file**: docs/requirements/requirement-python-coding-style.md
-**Status**: Active (Version 1.1.1)
+**Status**: Superseded (2026-10-22). C++ naming is `requirement-cpp-coding-style`. Do not apply `shutil.move` publish rules to the C++ binary.
+
+**Previous status**: Active (Version 1.1.1)
 **Area**: python
 **Key**: `requirement-python-coding-style`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)

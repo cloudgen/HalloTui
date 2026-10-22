@@ -1,5 +1,6 @@
 # TP-DOC-01 — user document structure. Primary law: requirement-python-readme.
-# The badge matches the package string. Every PNG is an absolute https link.
+# The badge matches kVersion and project.ini VERSION.
+# TP-VER-01 — those two strings match, and project.h has no integer triple.
 # TP-DOC-03 (catalog paragraph equality) is not this file yet.
 import re
 import unittest
@@ -7,10 +8,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 README = (ROOT / "README.md").read_text(encoding="utf-8")
-IMAGE_BASE = "https://raw.githubusercontent.com/Wilgat/VideoJoin/main/screenshots/"
+IMAGE_BASE = "https://raw.githubusercontent.com/cloudgen/HalloTui/main/screenshots/"
 RELATED = (
-    "https://github.com/Wilgat/VideoJoin",
-    "https://pypi.org/project/VideoJoin/",
+    "https://github.com/cloudgen/HalloTui",
+    "https://pypi.org/project/HalloTui/",
     "https://github.com/Wilgat/AnimeDlp",
     "https://github.com/Wilgat/ChronicleLogger",
     "https://github.com/Wilgat/VideoSpeed",
@@ -34,11 +35,11 @@ HEADINGS = (
 
 
 def _package_version():
-    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
-    init_text = (ROOT / "src" / "VideoJoin" / "__init__.py").read_text(encoding="utf-8")
-    py_match = re.search(r'(?m)^version = "([^"]+)"', pyproject)
-    init_match = re.search(r'__version__ = "([^"]+)"', init_text)
-    return py_match.group(1), init_match.group(1)
+    project_ini = (ROOT / "project.ini").read_text(encoding="utf-8")
+    header = (ROOT / "src" / "main" / "cpp" / "project.h").read_text(encoding="utf-8")
+    ini_match = re.search(r"(?m)^VERSION=(\S+)", project_ini)
+    header_match = re.search(r'kVersion = "([^"]+)"', header)
+    return ini_match.group(1), header_match.group(1)
 
 
 class TestReadmeStructure(unittest.TestCase):
@@ -68,6 +69,14 @@ class TestReadmeStructure(unittest.TestCase):
         if "\n### " in video:
             video = video.split("\n### ", 1)[0]
         self.assertIn("not a text-menu capture", video)
+
+    def test_tp_ver_01_single_string_pair(self):
+        """TP-VER-01: project.ini VERSION equals kVersion. No MAJOR, MINOR, or PATCH."""
+        ini_version, header_version = _package_version()
+        self.assertEqual(ini_version, header_version)
+        header = (ROOT / "src" / "main" / "cpp" / "project.h").read_text(encoding="utf-8")
+        for name in ("MAJOR", "MINOR", "PATCH"):
+            self.assertNotIn(name, header)
 
 
 if __name__ == "__main__":

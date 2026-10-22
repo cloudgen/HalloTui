@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-class-software-dev.md
-**Status**: Active (Version 1.1.2 – VideoJoin software-development class law + residual stack)
+**Status**: Active (Version 1.2.2 – public home is `https://github.com/cloudgen/HalloTui`)
 **Area**: class
 **Key**: `requirement-class-software-dev`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -12,13 +12,13 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 
 ### 1.1 Human-facing
 
-**In one sentence:** This file records that VideoJoin is Python, built with setuptools, and it points at the requirement that owns each other topic.
+**In one sentence:** This file records that HalloTui is C++, built with g++ and GNU Make, and it points at the requirement that owns each other topic.
 
 | Box | Meaning | Example |
 |-----|---------|---------|
-| You / this login | Maintainer checking which file owns a topic | The menu picture is the TUI requirement. The language row stays here |
-| The other role | Peer requirements | CLI, TUI, logging, domain, packaging |
-| Not this file | The join steps, the frame glyphs, and the pip command strings | Their own requirements. This file only points |
+| You / this login | Maintainer checking which file owns a topic | The menu picture is `requirement-cpp-tui` |
+| The other role | Peer requirements | CLI, TUI, domain, about |
+| Not this file | The frame glyphs and the pip command strings | Their own requirements. This file only points |
 
 | Includes | Excludes |
 |----------|----------|
@@ -29,14 +29,14 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 | Surface | What you open | What for |
 |---------|---------------|----------|
 | This file | Residual table | Which requirement owns the topic |
-| `pyproject.toml` | Package tool facts | The concrete manifest. Packaging owns the tables |
-| `video-join` | The program | You run it as the normal user |
+| `project.ini` and `Makefile` | Build facts | The binary path. The folder requirement owns the source list |
+| `hallo-tui` | The program | You run it as the normal user |
 
 | You do… | What it means | What you type |
 |---------|---------------|---------------|
-| Find the menu law | Open the TUI requirement. Do not expect the picture in this file. | `video-join` |
-| Find the logger law | Open the logging requirement. The floor is packaging and runtime. | `video-join version` |
-| Install | Use pip. There is no shell installer. | `python -m pip install VideoJoin` |
+| Find the menu law | Open `requirement-cpp-tui`. Do not expect the picture in this file. | `hallo-tui` |
+| Build | GNU Make. There is no shell installer. | `make` |
+| Ask for the version | The binary prints the local version. It does not call pip. | `hallo-tui version` |
 
 ## 2. Core Rules (Mandatory)
 
@@ -91,29 +91,29 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 
 ### 2.7 Implementation Notes (this project)
 
-| Field | Value (VideoJoin) |
+| Field | Value (HalloTui) |
 |-------|---------------------|
-| **Project display name** | VideoJoin |
+| **Project display name** | HalloTui |
 | **Project class** | software-development |
 | **Class requirement basename** | `requirement-class-software-dev.md` |
-| **Primary language(s)** | Python |
-| **Language role** | primary only for the runtime package under `src/VideoJoin/` |
-| **Execution model** | interpreted package. Optional Cython or `build.sh` tooling is not required for the CLI |
-| **Toolchain / interpreter** | CPython |
-| **Toolchain version policy** | range declared in `pyproject.toml` (`requires-python`). Re-verify before advertising a specific minor as tested |
+| **Primary language(s)** | C++ |
+| **Language role** | primary for the ship unit under `src/main/cpp` |
+| **Execution model** | compiled binary |
+| **Toolchain / interpreter** | `g++ -std=c++17` |
+| **Toolchain version policy** | C++17. Re-verify before advertising a newer standard |
 | **Cross-compile in scope?** | no |
-| **Primary project/package tool** | setuptools via PEP 517/621 `pyproject.toml` |
+| **Primary project/package tool** | GNU Make. One `Makefile`. No Autotools |
 | **Lockfile policy** | not used as product law |
-| **Test runner** | none as project law today. Proof rows in `docs/reviews/test-plan.md` stay todo |
-| **Linter/formatter** | none as project law |
-| **Primary runtime / OS family** | multi-OS where Python and FFmpeg run (documented focus: Linux; macOS and Windows when the dependencies exist) |
-| **Architectures supported** | any architecture with CPython and an FFmpeg binary |
-| **Git surface** | used — remote `https://github.com/Wilgat/VideoJoin` |
-| **Ship surface** | installable Python package `VideoJoin`; console script `video-join`; module form `python -m VideoJoin` |
-| **Product version SSOT** | `src/VideoJoin/__init__.py` → `__version__` and `pyproject.toml` `[project].version` stay equal when either is bumped (current: **1.0.5**) |
-| **Install mode** | pip / local package. Not a shell online-install product |
+| **Test runner** | `make test` runs `target/exe/debug/hallo-tui-tests`. `tests/run.sh` also runs the README proof |
+| **Linter/formatter** | none as project law. The build uses `-Wall -Wextra -Wpedantic` |
+| **Primary runtime / OS family** | Linux with ncurses. No FFmpeg |
+| **Architectures supported** | the architecture this `g++` targets |
+| **Git surface** | used — remote `https://github.com/cloudgen/HalloTui` |
+| **Ship surface** | `target/exe/debug/hallo-tui`. Console command `hallo-tui`. Not `python -m HalloTui` |
+| **Product version SSOT** | owned by `requirement-cpp-version`. `src/main/cpp/project.h` `kVersion` and `project.ini` `VERSION` (current: **1.0.0**) |
+| **Install mode** | GNU Make. Not a shell online-install product. Not a pip ship unit |
 | **Type 1 elevation** | intentionally absent. No root or sudo product surface |
-| **Actor / role / subject / approver** | **Considered — no dest approver.** The human operator of `video-join` is the only actor. No dest approval machine. **None** is valid. Do not add an actor requirement file |
+| **Actor / role / subject / approver** | **Considered — no dest approver.** The human operator of `hallo-tui` is the only actor. No dest approval machine. **None** is valid. Do not add an actor requirement file |
 | **Dest fence conditions** | **Considered — no dest fence conditions.** No dest inbound, approve, or reject queue |
 | **Author contact (non-secret)** | Wilgat Wong · `wilgat.wong@gmail.com` |
 
@@ -122,22 +122,22 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 | Topic | Owner | Notes |
 |-------|-------|--------|
 | Project class membership | **this file** | Fixed |
-| Primary language + toolchain policy | **this file** | Python / CPython |
-| Package/build tool + lockfile | **this file** + `requirement-python-packaging` | packaging owns the PEP 621 tables and the ChronicleLogger floor |
-| Project layout | `requirement-python-project-structure` | Running tree versus the class map |
-| Class homes | `requirement-python-oop` | One class per file. Do not duplicate the map |
+| Primary language + toolchain policy | **this file** | C++ / `g++` |
+| Build tool | **this file** + `requirement-cpp-folder` | GNU Make. `./build.sh` is not the ship command |
+| Project layout | `requirement-cpp-folder` | `src/main/cpp` |
+| Naming | `requirement-cpp-coding-style` | UpperCamel types, lowerCamel methods |
+| Product version string | `requirement-cpp-version` | `kVersion` and `project.ini` `VERSION` stay equal. This row records the current string |
 | CLI entry / typed verbs | `requirement-python-cli-interface` | Empty argv and the verb table |
-| Text menu | `requirement-python-tui` | Front board and the picture |
+| Text menu | `requirement-cpp-tui` | Front board and the picture |
 | Menu language | `requirement-python-cli-language` | Front row 4, the thirteen codes, and the language leaf |
-| Status logger | `requirement-python-cli-logging` | Construct in `def main` |
-| Domain surface | `requirement-domain-videojoin` | Four pillars. The about page uses the domain sentence |
+| Status logger | `requirement-cpp-coding-style` | No `logger_*` unit yet. ChronicleLogger is not constructed |
+| Domain surface | `requirement-domain-videojoin` | Welcome line. The about page uses the domain sentence |
 | About page | `requirement-python-about` | Identity, host check, and the star box |
-| FFmpeg concat / re-encode | `requirement-video-ffmpeg-pipeline` | Ops SSOT |
-| Python coding style / temps / `shutil.move` | `requirement-python-coding-style` | Publish. StateLogic stays unordered |
+| FFmpeg concat / re-encode | `requirement-video-ffmpeg-pipeline` | Retired |
 | Error / fail-closed user messaging | `requirement-python-error-handling` | Console sentences |
-| Host runtime deps | `requirement-runtime-prerequisites` | FFmpeg binary and the logger floor |
+| Host runtime deps | `requirement-runtime-prerequisites` | ncurses. No encoder |
 | Shell online install / shell self-update / Type O | **intentionally absent** | Not a shell channel |
-| Pip lifecycle (`version-check`, `self-update`, `self-install`, `self-uninstall`) | `requirement-python-cli-interface` and `requirement-python-tui` | `python -m pip` only. Not a shell channel |
+| Pip lifecycle (`version-check`, `self-update`, `self-install`, `self-uninstall`) | `requirement-python-cli-interface` and `requirement-cpp-tui` | Menu sentences say `python -m pip`. Not a shell channel |
 | Type 1 sudoers / root elevation | **intentionally absent** | No elevation law |
 | Actor / role / subject / approver | **this file (residual)** | Considered — no dest approver |
 | Dest fence conditions | **this file (residual)** | Considered — no dest fence conditions |
@@ -169,7 +169,7 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 6. Introduce a shell online-install channel, a `curl|sh` installer, or shell Type O empty-argv install-ensure. Pip lifecycle owned by the CLI and TUI requirements is not that channel.
 7. Introduce Type 1 sudoers or root elevation without an explicit user order and an elevation allowlist.
 8. Treat this file as server-maintenance allowlist law, or register an Active server-maintenance class file in parallel.
-9. Invent a second primary language that contradicts the Python requirements.
+9. Invent a second primary language that contradicts the C++ ship unit.
 10. Add an actor-requirement file while the residual says no dest approver.
 11. Mark pip lifecycle absent, or mark shell Type O present.
 
@@ -180,8 +180,8 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 | ID | Criterion |
 |----|-----------|
 | AC-1 | The sole Active class file is `requirement-class-software-dev.md` |
-| AC-2 | Primary language is Python with the CPython toolchain |
-| AC-3 | The package tool is setuptools plus `pyproject.toml` |
+| AC-2 | Primary language is C++ with `g++ -std=c++17` |
+| AC-3 | The build tool is GNU Make. The binary is `target/exe/debug/hallo-tui` |
 | AC-4 | The residual table points at the CLI, TUI, logging, OOP, and domain peers without copying their bodies |
 | AC-5 | Shell Type O and Type 1 elevation are absent. Pip lifecycle is owned by the CLI and the TUI |
 | AC-6 | Registered in `docs/requirements/index.md` with Area `class` |
@@ -195,7 +195,9 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 | `requirement-python-project-structure` | Layout |
 | `requirement-python-oop` | Class map |
 | `requirement-python-cli-interface` | Typed verbs and empty argv |
-| `requirement-python-tui` | Text menu |
+| `requirement-cpp-tui` | Text menu |
+| `requirement-cpp-folder` | Ship-unit directory and `make` |
+| `requirement-cpp-coding-style` | Naming |
 | `requirement-python-cli-logging` | Logger construct |
 | `requirement-domain-videojoin` | Domain four pillars |
 | `requirement-video-ffmpeg-pipeline` | Processing ops |
@@ -217,6 +219,16 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 
 On Termux, Git Bash, Windows cmd, or the same class, VideoJoin runs as the normal user. **This requirement:** do not use administrator privilege, `sudo`, `apt`, or a dedicated system user. Do not pipe a downloaded script into a shell. Type 1 and Type 2 are unused on Termux, Git Bash, and Windows cmd. Git Bash and Windows cmd do not call Termux `pkg`. Pip lifecycle, when the operator asks for it, is `python -m pip` from the CLI and TUI requirements.
 
+## Terminologies
+
+### Project target version
+
+**Definition:** Project target version is the user-confirmed product version string (typically MAJOR.MINOR.PATCH, for example 1.0.0 or 1.7.0) that agents must collect from the user (or confirm from an existing product root README.md parse). After it is written into product root README.md, that file is the single source of truth for this field, displayed once in the product README header kit as the shields.io Version badge. It is not hardcoded into skills, requirements, templates, or terminology files.
+
+**Human daily-life explanation:** Project target version is the user-confirmed version string shown once as the README Version badge. Skills do not own it.
+
+**Daily-life example:** The edition number printed on a cookbook's cover; the inner chapters should match, but the cover is what you asked to print.
+
 ## 8. Status history
 
 | Date | Status | Note |
@@ -225,9 +237,12 @@ On Termux, Git Bash, Windows cmd, or the same class, VideoJoin runs as the norma
 | 2026-10-04 | Active 1.1.0 | Residual pointers for the text menu, the logger, the class map, and pip lifecycle. Shell Type O stays absent |
 | 2026-10-04 | Active 1.1.1 | Menu language points at `requirement-python-cli-language`. No new actor file |
 | 2026-10-04 | Active 1.1.2 | Residual row for the about page. Product version **1.0.5** |
+| 2026-10-22 | Active 1.2.0 | Ship unit is C++ / g++ / GNU Make. Product version **1.0.0**. Menu owner is `requirement-cpp-tui` |
+| 2026-10-22 | Active 1.2.1 | The version string is owned by `requirement-cpp-version`. This file points at it |
+| 2026-10-22 | Active 1.2.2 | Public home is `https://github.com/cloudgen/HalloTui` |
 
 ---
 
-**Last Updated**: 2026-10-04
+**Last Updated**: 2026-10-22
 **Owner**: project maintainers
 **Alignment**: Registry `docs/requirements/index.md`; **CIAO** (https://github.com/cloudgen/ciao); CIAO-Lite (https://github.com/cloudgen/ciao-lite).

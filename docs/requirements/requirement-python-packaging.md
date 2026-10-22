@@ -1,5 +1,7 @@
 **file**: docs/requirements/requirement-python-packaging.md
-**Status**: Active (Version 1.2.2)
+**Status**: Superseded (2026-10-22). The ship unit is the GNU Make binary in `requirement-cpp-folder`. This file remains the history of the Python package. Do not treat `pyproject.toml` as the ship SSOT. The checkout homepage URL is `https://github.com/cloudgen/HalloTui`. The homepage cell below records the older VideoJoin manifest.
+
+**Previous status**: Active (Version 1.2.2)
 **Area**: python
 **Key**: `requirement-python-packaging`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)

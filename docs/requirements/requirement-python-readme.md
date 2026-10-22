@@ -1,12 +1,20 @@
 **file**: docs/requirements/requirement-python-readme.md
-**Status**: Active (Version 1.0.1)
+**Status**: Active (Version 1.0.3)
 **Area**: python
 **Key**: `requirement-python-readme`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
 
+## Amendment 2026-10-22 — version owner
+
+The live version string is owned by `requirement-cpp-version`: `kVersion` in `src/main/cpp/project.h` and `VERSION` in `project.ini`, both `1.0.0`. The Version badge copies that string. Sentences below that still name `__version__`, `src/VideoJoin/__init__.py`, or package **1.0.5** describe the older catalog and are not the current string. The live menu picture is `requirement-cpp-tui`. Catalog cells that still describe join-era pictures stay historical.
+
+## Amendment 2026-10-22 — public home
+
+The public source home is `https://github.com/cloudgen/HalloTui`. Picture URLs use `https://raw.githubusercontent.com/cloudgen/HalloTui/main/screenshots/<basename>`. The first related-project line is that repository. The second is `https://pypi.org/project/HalloTui/`. Sentences below that still name `https://github.com/Wilgat/VideoJoin` or `https://pypi.org/project/VideoJoin/` describe the older catalog.
+
 ## 1. Purpose
 
-This file owns the product user document at the repository root: which sections it has, which pictures it embeds, and the rule that a sentence in that document matches the requirement that owns the behavior. Project nature is a program a person builds and runs from a terminal. The menu picture stays on `requirement-python-tui`. The thirteen languages stay on `requirement-python-cli-language`. The verbs stay on `requirement-python-cli-interface`. The join stays on `requirement-domain-videojoin` and `requirement-video-ffmpeg-pipeline`. The prerequisite sentences stay on `requirement-runtime-prerequisites`. The package name and the console script stay on `requirement-python-packaging`. The version string is `__version__`. This file does not restate those bodies.
+This file owns the product user document at the repository root: which sections it has, which pictures it embeds, and the rule that a sentence in that document matches the requirement that owns the behavior. Project nature is a program a person builds and runs from a terminal. The menu picture stays on `requirement-python-tui`. The thirteen languages stay on `requirement-python-cli-language`. The verbs stay on `requirement-python-cli-interface`. The join stays on `requirement-domain-videojoin` and `requirement-video-ffmpeg-pipeline`. The prerequisite sentences stay on `requirement-runtime-prerequisites`. The package name and the console script stay on `requirement-python-packaging`. The version string is owned by `requirement-cpp-version`. This file does not restate those bodies.
 
 ### 1.1 Human-facing
 
@@ -32,7 +40,7 @@ This file owns the product user document at the repository root: which sections 
 
 | You do… | What it means | What you type |
 |---------|---------------|---------------|
-| Read the install | The public path is pip. The document does not ask for root. | `pip install VideoJoin` |
+| Read the install | This checkout is `make`. The document does not ask for root. | `make` |
 | Check the pictures | Row 4 is the language list. The pictured job joins two files in the current directory. About stays in English. | `video-join`, then `4`, or `1` |
 | Check the version line | The badge matches the package string. | `video-join version` |
 
@@ -61,7 +69,7 @@ Each behavioral sentence **MUST** match its owner and **MUST NOT** restate that 
 | Product verbs and pip lifecycle commands | `requirement-python-cli-interface` |
 | Empty argv on a terminal opens the menu. Empty argv with no terminal prints help and returns 0. Direct `join` with no terminal exits non-zero | `requirement-python-cli-interface` |
 | Package name, console script, pip install | `requirement-python-packaging` |
-| Package string on the badge | `__version__` in `src/VideoJoin/__init__.py`, copied by `pyproject.toml` |
+| Package string on the badge | `kVersion` in `src/main/cpp/project.h` and `VERSION` in `project.ini` (`requirement-cpp-version`) |
 | `ChronicleLogger>=1.3.1` | `requirement-python-packaging` and `requirement-runtime-prerequisites` |
 | FFmpeg on `PATH`, no root auto-install | `requirement-runtime-prerequisites` |
 
@@ -94,18 +102,18 @@ The first-row sentence in the user document **MUST** name the current directory 
 | **Pictures** | `screenshots/` |
 | **Package** | `VideoJoin` |
 | **Console script** | `video-join` |
-| **Version** | `1.0.5` from `src/VideoJoin/__init__.py` (`__version__`). `pyproject.toml` copies that string |
+| **Version** | `1.0.0` from `kVersion` and `project.ini` `VERSION` (`requirement-cpp-version`). The badge copies that string |
 | **Python** | `>=2.7`, excluding 3.0 through 3.4. The badge says 2.7+ (3.x recommended) |
 | **License file** | `LICENSE.md` (MIT). The file is present. The document link stays relative |
-| **Homes** | `https://github.com/Wilgat/VideoJoin` and `https://pypi.org/project/VideoJoin/` |
+| **Homes** | `https://github.com/cloudgen/HalloTui` and `https://pypi.org/project/HalloTui/` |
 | **Pictured job** | First file `clip-a.mp4` (index **1**), second file `clip-b.mp4` (index **1** on the remaining list), Enter on the default output name |
 | **Pictured output** | `clip-a + clip-b.mp4`. The captured result is stream copy. The stage line on that picture is `Staging dir → .` |
 | **Every PNG** | `README.md` links each PNG under `screenshots/`. `video.png` is linked and is not a menu capture |
-| **Image URL** | `https://raw.githubusercontent.com/Wilgat/VideoJoin/main/screenshots/<basename>`. The package index can fetch that file only after it is on that public branch |
+| **Image URL** | `https://raw.githubusercontent.com/cloudgen/HalloTui/main/screenshots/<basename>`. The package index can fetch that file only after it is on that public branch |
 
-**Title:** `VideoJoin - Join two local videos with FFmpeg (stream-copy first)`.
+**Title:** `VideoJoin - Welcome message on the command line and in the text menu`.
 
-**Badges:** a Version badge whose token is the package string; License MIT; CIAO linked to `https://github.com/cloudgen/ciao`; stars for `Wilgat/VideoJoin`; Python 2.7+ (3.x recommended); PyPI `VideoJoin` linked to `https://pypi.org/project/VideoJoin/`.
+**Badges:** a Version badge whose token is the package string; License MIT; CIAO linked to `https://github.com/cloudgen/ciao`; stars for `cloudgen/HalloTui`; Python 2.7+ (3.x recommended); PyPI `HalloTui` linked to `https://pypi.org/project/HalloTui/`.
 
 **Opening:** concatenate two videos in the current directory. Prefer stream copy. Re-encode when copy fails. Publish with `shutil.move`. On a terminal with no arguments, the text menu opens. The menu does not start the join by itself and does not call pip.
 
@@ -115,22 +123,22 @@ The first-row sentence in the user document **MUST** name the current directory 
 |---------|------------------------------|------------------------|
 | Features | Text menu: join, system-log, language, self-management, Exit. Path and a local clock on the first row. system-log is **3**. language is **4**. self-management is **8**. Two files in the current directory. Stream copy, then re-encode. `shutil.move`. FFmpeg on `PATH`. Verbs `help`, `version`, `about`, `hello`, `join`, `list-videos`, `self-install`, `version-check`, `self-update`, `self-uninstall` | Peers in §2.2. The path-row sentence is the clock rule in §2.2 |
 | Advantages | The four parts and the comparison table below | This file for the contrast. Peers in §2.2 for the behavior |
-| Quick Installation | FFmpeg on `PATH`. `ChronicleLogger>=1.3.1`. `pip install VideoJoin`. Checkout uses a venv and `pip install -e .`. The fenced text menu (front, system-log, language, self-management) stays in this section | `requirement-runtime-prerequisites`, `requirement-python-packaging`, `requirement-python-tui` |
+| Quick Installation | This checkout is built with `make`. The binary is `target/exe/debug/hallo-tui`. No FFmpeg. No ChronicleLogger floor for that binary. A registry pip paragraph may remain and is not the only ship command. The fenced text menu (hello, system-log, language, self-management, Exit) stays in this section | `requirement-cpp-folder`, `requirement-cpp-tui` |
 | Usage | Menu versus typed verbs. Join asks for two indexes and an output name. No folder prompt. Esc returns. No terminal: empty argv prints help and returns 0. Direct `join` with no terminal exits non-zero. `self-uninstall` needs `--force`. No sudo | `requirement-python-cli-interface`, `requirement-domain-videojoin`, `requirement-python-tui` |
 | Screenshots | Lead: each heading is the file name, and the paragraph is what that picture shows. Package **1.0.5**. The paragraph and the image alt are the catalog below. Pictures that still show **1.0.4** say so | This file |
 | Examples | `cd` to a folder of clips, then `video-join`, then `video-join version`, then `video-join join` | `requirement-domain-videojoin` |
 | Platform Compatibility | Linux primary. macOS and Windows when Python and FFmpeg are present. The text menu needs a terminal | `requirement-runtime-prerequisites` |
 | Related Projects | The eight lines below, in that order, each with one sentence | This file |
-| Contributing | Keep product law in sync. Do not strip `shutil.move`. Version strings stay together | `requirement-python-coding-style`, `requirement-python-packaging` |
+| Contributing | Keep product law in sync. Do not strip `shutil.move`. Version strings stay together | `requirement-cpp-version` |
 | License | MIT, link `LICENSE.md`, and that file exists | `requirement-python-packaging` |
-| Last Update | Names package **1.0.5** and the picture catalog. A version bump is not required for pictures that did not change | This file for the line. `__version__` for the string |
+| Last Update | Names the current string and the picture catalog. A version bump is not required for pictures that did not change | This file for the line. `requirement-cpp-version` for the string |
 
 **Related projects, in this order.** The first two are this program. Each line is one sentence. Do not add an install recipe.
 
 | Order | Link | Sentence |
 |------:|------|----------|
-| 1 | `https://github.com/Wilgat/VideoJoin` | This program’s source |
-| 2 | `https://pypi.org/project/VideoJoin/` | This program on PyPI |
+| 1 | `https://github.com/cloudgen/HalloTui` | This program’s source |
+| 2 | `https://pypi.org/project/HalloTui/` | This program on PyPI |
 | 3 | `https://github.com/Wilgat/AnimeDlp` | Command-line downloader for anime video sites |
 | 4 | `https://github.com/Wilgat/ChronicleLogger` | Status logger this program depends on (`ChronicleLogger>=1.3.1`) |
 | 5 | `https://github.com/Wilgat/VideoSpeed` | Cuts, changes speed, and boomerangs a clip. That program is not this one |
@@ -261,15 +269,35 @@ The documented install is for this login. **This requirement:** the user documen
 | `screenshots/` | The captures |
 | `docs/reviews/test-plan.md` | `TP-DOC-01` and `TP-DOC-03` |
 
+## Terminologies
+
+### Project target version
+
+**Definition:** Project target version is the user-confirmed product version string (typically MAJOR.MINOR.PATCH, for example 1.0.0 or 1.7.0) that agents must collect from the user (or confirm from an existing product root README.md parse). After it is written into product root README.md, that file is the single source of truth for this field, displayed once in the product README header kit as the shields.io Version badge. It is not hardcoded into skills, requirements, templates, or terminology files.
+
+**Human daily-life explanation:** Project target version is the user-confirmed version string shown once as the README Version badge. Skills do not own it.
+
+**Daily-life example:** The edition number printed on a cookbook's cover; the inner chapters should match, but the cover is what you asked to print.
+
+### Version align
+
+**Definition:** Version align (also version alignment) is the evidence-based process of inventorying every in-scope product version surface, comparing them for consistency with a single current product version string, and reporting PASS, DISCREPANCY, N/A, or not probeable, including, when a PyPI upload script is present on disk, the live PyPI version from the package index. It is not a VCS commit, not a force of registry state, and not permission to invent versions.
+
+**Human daily-life explanation:** Version align is checking that every clock in the house shows the same time as the one agreed current time, then reporting match, mismatch, not applicable, or cannot look. It does not wind the clocks for you, and it does not invent a time that was never written.
+
+**Daily-life example:** You compare the oven clock, the hallway clock, and the posted menu date. You report "hallway is five minutes slow." You do not secretly rewrite the menu.
+
 ## 7. Status history
 
 | Date | Status | Note |
 |------|--------|------|
 | 2026-10-04 | Active 1.0.0 | User-document sections, Advantages, eight related projects, and twenty-two pictures. Image destinations are absolute `https`. `TP-DOC-01` have. `TP-DOC-03` todo |
 | 2026-10-04 | Active 1.0.1 | About and self-management pictures match the new page. Other menu pictures still show **1.0.4**. Package string is **1.0.5** |
+| 2026-10-22 | Active 1.0.2 | The badge string is owned by `requirement-cpp-version`. Catalog cells that name **1.0.5** stay historical |
+| 2026-10-22 | Active 1.0.3 | Public home is `https://github.com/cloudgen/HalloTui`. Picture host and the first two related-project lines follow that home |
 
 ---
 
-**Last Updated**: 2026-10-04
+**Last Updated**: 2026-10-22
 **Owner**: project maintainers
 **Alignment**: Registry `docs/requirements/index.md`; **CIAO** (https://github.com/cloudgen/ciao); CIAO-Lite (https://github.com/cloudgen/ciao-lite).

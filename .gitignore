@@ -46,6 +46,7 @@ logs/
 
 # --- Generic build / package ---
 build/
+target/
 dist/
 out/
 *.o

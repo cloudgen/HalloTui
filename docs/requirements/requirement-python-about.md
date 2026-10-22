@@ -1,5 +1,22 @@
 **file**: docs/requirements/requirement-python-about.md
-**Status**: Active (Version 1.0.0)
+**Status**: Active (Version 1.1.2)
+
+## Amendment 2026-10-22 — C++ page
+
+This amendment is the live host-check law. Where it conflicts with rules 2, 4, 11, 15, 16, 18, and 21 below, this amendment wins.
+
+1. The composer is `AboutPage` in `src/main/cpp/about_page.cpp`. There is no `CheckSystem` class.
+2. The entry-points line is `Entry points: hallo-tui`. It does not name `python -m HalloTui`.
+3. After the header, the labels are, in order: Compiler (`g++` plus the compiler version), C++ standard (`C++17`), Operation System, Architecture, Current User, Shell, Inside docker container (`True` or `False` from `/.dockerenv`), Location, PID, Cache folder used, Cache folder (preferred), Cache folder (1st fallback), Cache folder (2nd fallback), Persistence storage, TTY / Interactive.
+4. The page does not print python2, python3, conda, pyenv, libc, or venv lines.
+5. The stamp is local `YYYY-MM-DD HH:MM:SS` plus the literal `.000000`. A true microsecond clock is not wired.
+6. Rules 15, 16, and 18 are withdrawn.
+7. Cache preference is unchanged: `/dev/shm/cache/cache-{app}-{user}-{pid}`, then `/tmp/cache/...`, then `{home}/.cache/cache-{app}-{pid}` with no username. Building the page does not create those directories. Persistence is `{home}/.local/HalloTui`.
+8. Install kind: a checkout that has `src/main/cpp` plus a `Makefile` or `project.ini` above the binary is uninstalled, even when that checkout is under the home directory. Another path under the home directory is local. A path under `/usr/`, `/opt/`, or `/bin/` is global.
+9. The version token in the identity line, the stamp, and the star-box title is `kVersion`. `requirement-cpp-version` owns that string. This page does not print `__version__` and does not split the string into `MAJOR`, `MINOR`, and `PATCH`.
+10. The homepage line in the star box is `kHomepage`, `https://github.com/cloudgen/HalloTui`. The boxed sample below that still names `https://github.com/Wilgat/VideoJoin` is the older catalog.
+
+The identity block stays: `{APP_NAME} {version}`, `Domain: Show a welcome message`, `Runtime tools: none`, then the entry-points line. `{APP_NAME}` is HalloTui and `{version}` is 1.0.0.
 **Area**: python
 **Key**: `requirement-python-about`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -8,7 +25,7 @@
 
 This file is the about page for VideoJoin. Menu action **about** returns one text page: the product identity lines, a host check, and a star-bordered box. This file names every line and the read that fills it.
 
-The screen that shows the page stays on `requirement-python-tui`. The domain sentence stays on `requirement-domain-videojoin`. The version string stays the single `__version__` on `requirement-python-packaging`. `--version` stays a one-line human string on `requirement-python-cli-interface`. This product does not claim `--json`. This file does not open the menu, join a video, or write a JSON object.
+The screen that shows the page stays on `requirement-python-tui`. The domain sentence stays on `requirement-domain-videojoin`. The version string is `kVersion`, owned by `requirement-cpp-version`. `--version` stays a one-line human string on `requirement-python-cli-interface` and `requirement-cpp-version`. This product does not claim `--json`. This file does not open the menu, join a video, or write a JSON object.
 
 Pyenv and conda path reads for this page stay in this file. This product does not add `requirement-python-pyenv` or `requirement-python-conda`.
 
@@ -48,7 +65,7 @@ Pyenv and conda path reads for this page stay in this file. This product does no
 ## 2. Core Rules (Mandatory)
 
 1. **One page.** Menu action **about** and the verb `video-join about` **MUST** show one result page whose body is this file. The verb **MUST NOT** ask for a folder or a file. The page **MUST** be three blocks in this order: identity, host check, star box. A blank line **MUST** separate the blocks. The page **MUST NOT** be `--version`. Without a terminal, that page **MUST** be the whole of standard output. This product does not claim `--json`. The page **MUST NOT** gain a JSON stream.
-2. **Identity block.** The first four lines **MUST** be, in order: `{APP_NAME} {version}`, `Domain: Concatenate two local videos with FFmpeg (copy, then fallback)`, `Runtime tools: FFmpeg (copy, then re-encode)`, `Entry points: video-join, python -m VideoJoin`. `{version}` **MUST** be the package version string `__version__`. The domain sentence **MUST** stay the sentence on `requirement-domain-videojoin`. The runtime-tools line is static. It **MUST NOT** be a live `ffmpeg` probe. The page **MUST NOT** name `py-tui`. It **MUST NOT** print `python -m pip install` or an author email.
+2. **Identity block.** The first four lines **MUST** be, in order: `{APP_NAME} {version}`, `Domain: Show a welcome message`, `Runtime tools: none`, `Entry points: video-join, python -m VideoJoin`. `{version}` **MUST** be the package version string `__version__`. The domain sentence **MUST** stay the sentence on `requirement-domain-videojoin`. The runtime-tools line is static. It **MUST NOT** name FFmpeg. The page **MUST NOT** name `py-tui`. It **MUST NOT** print `python -m pip install` or an author email.
 3. **Host-check header.** The check **MUST** start with `{local stamp} {APP_NAME}(v{version})  [CHECK SYSTEM]:` and the next line **MUST** be two spaces then `Now checking your operation system!`. The stamp **MUST** be local time `YYYY-MM-DD HH:MM:SS.ffffff` from `datetime.datetime.now()`. There are two spaces before `[CHECK SYSTEM]:`.
 4. **Host-check fields.** After the header, the page **MUST** print these labels in this order, each starting with four spaces, then the label, a colon, a space, and the value. A missing value **MUST** leave the line in place. The check **MUST NOT** spawn `python2`, `python3`, `conda`, `pyenv`, or `id`.
 
@@ -177,7 +194,7 @@ Invocation: `video-join` on a terminal, then `8`, then `83`. The same page is `v
 | **APP_NAME** | `VideoJoin` |
 | **Console script** | `video-join` |
 | **Author** | `Wilgat Wong` |
-| **Homepage** | `https://github.com/Wilgat/VideoJoin` |
+| **Homepage** | `https://github.com/cloudgen/HalloTui` (`kHomepage`) |
 | **About date** | `2026-10-04` (`Cli.LAST_UPDATE`). This is the box date, not the host-check stamp |
 | **Usage line** | `video-join join` (`Cli.BASIC_USAGE`) |
 | **Download URL** | empty (`Cli.DOWNLOAD_URL`) |
@@ -271,19 +288,32 @@ TP-ABOUT-01 asserts the identity line, every host-check label, the star-box titl
 | `docs/requirements/requirement-python-cli-logging.md` | `in_venv`, `in_pyenv`, and `in_conda` read the one logger. They are not printed |
 | `docs/requirements/requirement-python-cli-interface.md` | `--version` stays the short human line. The verb `about` is named there |
 | `docs/requirements/requirement-python-cli-language.md` | The about page stays English. The leaf short `about` stays English |
-| `docs/requirements/requirement-python-packaging.md` | The version string in the title and the stamp |
+| `docs/requirements/requirement-cpp-version.md` | The version string in the title and the stamp |
 | `docs/requirements/requirement-runtime-prerequisites.md` | FFmpeg is required for `join`. This page does not probe it |
 | `docs/requirements/requirement-class-software-dev.md` | Approver none; no dest fence |
 | `src/VideoJoin/about_page.py` | Class `AboutPage`. `framework_about` |
 | `src/VideoJoin/check_system.py` | Class `CheckSystem` |
 | `pyproject.toml` | Homepage URL and the version string |
 
+## Terminologies
+
+### Project target version
+
+**Definition:** Project target version is the user-confirmed product version string (typically MAJOR.MINOR.PATCH, for example 1.0.0 or 1.7.0) that agents must collect from the user (or confirm from an existing product root README.md parse). After it is written into product root README.md, that file is the single source of truth for this field, displayed once in the product README header kit as the shields.io Version badge. It is not hardcoded into skills, requirements, templates, or terminology files.
+
+**Human daily-life explanation:** Project target version is the user-confirmed version string shown once as the README Version badge. Skills do not own it.
+
+**Daily-life example:** The edition number printed on a cookbook's cover; the inner chapters should match, but the cover is what you asked to print.
+
 ## 7. Status history
 
 | Date | Status | Note |
 |------|--------|------|
 | 2026-10-04 | Active 1.0.0 | About page: identity, host check, star box. Pyenv and conda reads stay here. No `--json`. Product version **1.0.5**. `./tests/run.sh` — 23 tests, OK. `TP-ABOUT-01` through `TP-ABOUT-14` and `TP-ABOUT-16` are have. There is no `TP-ABOUT-15` |
+| 2026-10-22 | Active 1.1.0 | C++ host-check amendment. Identity version is **1.0.0** |
+| 2026-10-22 | Active 1.1.1 | The version token is owned by `requirement-cpp-version` |
+| 2026-10-22 | Active 1.1.2 | The star-box homepage is `kHomepage`, `https://github.com/cloudgen/HalloTui` |
 
-**Last Updated**: 2026-10-04
+**Last Updated**: 2026-10-22
 **Owner**: project maintainers
 **Alignment**: Registry `docs/requirements/index.md`; **CIAO** (https://github.com/cloudgen/ciao); CIAO-Lite (https://github.com/cloudgen/ciao-lite).
